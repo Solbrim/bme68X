@@ -6,11 +6,14 @@ license = "MIT"
 name = "bme680"
 repository = "https://github.com/marcelbuesing/bme680-hal"
 version = "0.6.0"
-edition = "2018"
+edition = "2024"
 
 [badges]
 travis-ci = { repository = "https://github.com/marcelbuesing/bme680-hal", branch = "master" }
 maintenance = { status = "passively-maintained" }
+
+[env]
+RUST_LOG = "info"
 
 [dependencies]
 bitflags = "1.2"

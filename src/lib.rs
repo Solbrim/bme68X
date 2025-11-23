@@ -103,6 +103,9 @@ use core::{marker::PhantomData, result};
 use embedded_hal as hal;
 use log::{debug, error, info};
 
+pub fn c_to_f(c: f32) -> f32 {
+    (c * 9.0 / 5.0) + 32.0
+}
 
 /// All possible errors in this crate
 #[derive(Debug)]
