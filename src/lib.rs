@@ -96,7 +96,7 @@ mod constants;
 use crate::constants::*;
 use crate::calc::Calc;
 use crate::hal::delay::DelayNs;
-use crate::hal::i2c::{I2c, SevenBitAddress, Operation};
+use crate::hal::i2c::{I2c, SevenBitAddress};
 
 use core::time::Duration;
 use core::{marker::PhantomData, result};
