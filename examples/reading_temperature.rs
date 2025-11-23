@@ -1,22 +1,27 @@
+
+use embedded_hal as hal;
+use crate::hal::delay::DelayNs;
+use crate::hal::i2c::{I2c, Error, SevenBitAddress};
+use bme680::*;
+use core::time::Duration;
+use embedded_hal::i2c;
+use log::info;
+use linux_embedded_hal::{ Delay, I2cdev };
+
+use bme680::Error as HalError;
+
 #[cfg(unix)]
 fn main(
-) -> result::Result<(), Error<<hal::I2cdev as i2c::Read>::Error, <hal::I2cdev as i2c::Write>::Error>>
+) -> Result<(), <I2cdev as hal::i2c::ErrorType>::Error>
 {
-    use bme680::*;
-    use core::result;
-    use core::time::Duration;
-    use embedded_hal::blocking::delay::DelayMs;
-    use embedded_hal::blocking::i2c;
-    use log::info;
-    use linux_embedded_hal as hal;
-    use linux_embedded_hal::Delay;
+
 
     env_logger::init();
 
-    let i2c = hal::I2cdev::new("/dev/i2c-1").unwrap();
+    let i2c = I2cdev::new("/dev/i2c-1").unwrap();
     let mut delayer = Delay {};
 
-    let mut dev = Bme680::init(i2c, &mut delayer, I2CAddress::Primary)?;
+    let mut dev: Bme680<I2cdev, Delay> = Bme680::init(i2c, &mut delayer, I2CAddress::Primary)?;
     let mut delay = Delay {};
 
     let settings = SettingsBuilder::new(&dev)

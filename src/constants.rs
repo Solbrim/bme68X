@@ -1,7 +1,7 @@
 #![allow(dead_code, non_snake_case)]
 
 /// BME680 General config
-pub const BME680_POLL_PERIOD_MS: u8 = 10;
+pub const BME680_POLL_PERIOD_MS: u32 = 10;
 
 /// BME680 unique chip identifier
 pub const BME680_CHIP_ID: u8 = 0x61;
@@ -125,7 +125,7 @@ pub const BME680_VARIENT_ID_BME688: u8 = 1;
 pub const BME680_SLEEP_MODE: u8 = 0;
 pub const BME680_FORCED_MODE: u8 = 1;
 
-pub const BME680_RESET_PERIOD: u8 = 10;
+pub const BME680_RESET_PERIOD: u32 = 10;
 
 pub const BME680_MODE_MSK: u8 = 0x03;
 pub const BME680_RSERROR_MSK: u8 = 0xf0;
