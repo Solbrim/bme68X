@@ -45,11 +45,8 @@ pi@raspberrypi:~ $ i2cdetect -y 1
 70: -- -- -- -- -- -- 76
 ```
 
-# Example Influx Client
-The examples folder contains an example for a simple influx database client inserting collected values.
-Below you may find examples of Chronograf graphs of an indoor measurement over a period of 30 days.
+# Run Examples
 
-![Temperature Graph](examples/res/influx_temperature.png "Temperature measurement in C°")
-![Humidity Graph](examples/res/influx_humidity.png "Humidity measurement in %")
-![Air pressure Graph](examples/res/influx_pressure.png "Air pressure measurement in hPa")
-![Gas resistance Graph](examples/res/influx_gas_resistance.png "Gas resistance measurement")
+```sh
+RUST_LOG=info cargo run --example reading_temperature
+```

@@ -14,16 +14,13 @@ use bme680::Error as HalError;
 fn main(
 ) -> Result<(), <I2cdev as hal::i2c::ErrorType>::Error>
 {
-    use log::debug;
-
-    println!("PROGRAM STARTED!");
 
     env_logger::init();
 
     let i2c = I2cdev::new("/dev/i2c-1").unwrap();
     let mut delayer = Delay {};
 
-    let mut dev: Bme680<I2cdev, Delay> = Bme680::init(i2c, &mut delayer, I2CAddress::Secondary)?;
+    let mut dev: Bme680<I2cdev, Delay> = Bme680::init(i2c, &mut delayer, I2CAddress::Secondary)?; // Note, most likely should be Primary; my chip is default to 77 despite not being shorted.
     let mut delay = Delay {};
 
     let settings = SettingsBuilder::new(&dev)
@@ -50,17 +47,17 @@ fn main(
     loop {
         delay.delay_ms(5000u32);
         let power_mode = dev.get_sensor_mode();
-        println!("Sensor power mode: {:?}", power_mode);
-        println!("Setting forced power modes");
+        info!("Sensor power mode: {:?}", power_mode);
+        info!("Setting forced power modes");
         dev.set_sensor_mode(&mut delayer, PowerMode::ForcedMode)?;
-        println!("Retrieving sensor data");
+        info!("Retrieving sensor data");
         let (data, _state) = dev.get_sensor_data(&mut delayer)?;
-        println!("Sensor Data {:?}", data);
+        info!("Sensor Data {:?}", data);
         let temp = data.temperature_celsius();
-        println!("Temperature {}°C {}°F", temp, c_to_f(temp));
-        println!("Pressure {}hPa", data.pressure_hpa());
-        println!("Humidity {}%", data.humidity_percent());
-        println!("Gas Resistence {}Ω", data.gas_resistance_ohm());
+        info!("Temperature {}°C {}°F", temp, c_to_f(temp));
+        info!("Pressure {}hPa", data.pressure_hpa());
+        info!("Humidity {}%", data.humidity_percent());
+        info!("Gas Resistence {}Ω", data.gas_resistance_ohm());
     }
 }
 
